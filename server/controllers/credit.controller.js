@@ -75,7 +75,7 @@ export const purchasePlan = async (req, res) => {
 
     const { origin } = req.headers;
 
-    const session = await stripe.checkout.sessions.create({ // ✅ Fixed: was stripe.Checkout (lowercase)
+    const session = await stripe.checkout.sessions.create({
       line_items: [
         {
           price_data: {
@@ -95,7 +95,7 @@ export const purchasePlan = async (req, res) => {
         transactionId: transaction._id.toString(),
         appId: "CortexAI",
       },
-      expires_at: Math.floor(Date.now() / 1000) + 10 * 60, 
+      expires_at: Math.floor(Date.now() / 1000) + 30 * 60, 
     });
 
     res.json({ success: true, url: session.url });
