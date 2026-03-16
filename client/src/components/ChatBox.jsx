@@ -6,14 +6,58 @@ import Message from "./Message.jsx";
 
 const ChatBox = () => {
   const containerRef = useRef(null);
-  const { selectedChat, theme } = useAppContext();
+  const { selectedChat, theme, user, axios, token, setUser } = useAppContext();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [mode, setMode] = useState("text");
   const [isPublished, setIsPublished] = useState(false);
   const onSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
+      if (!user) {
+        return toast("Login to send function");
+      }
+      setLoading(true);
+      const promptCopy = prompt;
+      setPrompt("");
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "user",
+          content: prompt,
+          timestamps: Date.now(),
+          isImage: false,
+        },
+      ]);
+
+      const { data } = await axios.post(
+        `/api/message/${mode}`,
+        {
+          chatId: selectedChat._id,
+          prompt,
+          isPublished,
+        },
+        {
+          headers: { Authorization: token },
+        },
+      );
+
+      if (data.success) {
+        setMessages((prev) => [...prev, data.reply]);
+        // decrease credits
+        if (mode === "image") {
+          setUser((prev) => ({ ...prev, credits: prev.credits - 2 }));
+        } else {
+          setUser((prev) => ({ ...prev, credits: prev.credits - 1 }));
+        }
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setPrompt("");
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -100,6 +144,7 @@ const ChatBox = () => {
           </option>
         </select>
         <input
+          value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           type="text"
           placeholder="Type your prompt here..."
