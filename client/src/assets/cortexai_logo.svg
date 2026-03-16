@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100">
+
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"></stop>
+      <stop offset="100%" stop-color="#22C55E"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon -->
+  <circle cx="40" cy="50" r="26" fill="url(#grad1)"></circle>
+  <circle cx="40" cy="50" r="8" fill="white"></circle>
+  <line x1="40" y1="24" x2="40" y2="40" stroke="white" stroke-width="3"></line>
+  <line x1="40" y1="60" x2="40" y2="76" stroke="white" stroke-width="3"></line>
+  <line x1="14" y1="50" x2="30" y2="50" stroke="white" stroke-width="3"></line>
+  <line x1="50" y1="50" x2="66" y2="50" stroke="white" stroke-width="3"></line>
+
+  <!-- Brand -->
+  <text x="80" y="55" font-size="36" font-family="Segoe UI, Arial" font-weight="700" fill="#111">
+    CortexAI
+  </text>
+
+  <!-- Tagline -->
+  <text x="80" y="78" font-size="14" font-family="Segoe UI, Arial" fill="#555">
+    Smarter AI Conversations
+  </text>
+
+</svg>
