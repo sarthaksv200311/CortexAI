@@ -21,12 +21,7 @@ app.post(
 
 console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
 // Middleware
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  }),
-);
+app.use(cors({}));
 app.use(express.json());
 
 // Routes
